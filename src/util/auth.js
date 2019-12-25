@@ -1,28 +1,11 @@
-import { useReducer, useEffect } from "react";
-
-const initialState = {token: ''};
-
-export function tokenReducer(state, action) {
-    switch(action.type) {
-        case 'SET_TOKEN':
-            return {
-                token: action.token
-            }
-        case 'GET_TOKEN': 
-            return state;
-        default: 
-            throw new Error();
-    }
-} 
+import { useEffect } from "react";
 
 export default function useAuth() {
-    const [state, dispatch] = useReducer(tokenReducer,initialState)
     useEffect(() => {
-        console.log(state)
-        console.log(dispatch)
         console.log(window.location)
         if (!state.token && window.location.pathname !== '/login') {
-            window.location.replace('/login')
+            const url = window.location.protocol + '//' + window.location.host + window.location.pathname
+            window.location.replace(`/login?redirect_url=${url}`)
         }
     })
 }

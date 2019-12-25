@@ -1,30 +1,25 @@
 import React, { useState } from 'react';
 
-export default function Login () {
+export default function Login (props) {
     const [username, setUsername ] = useState('')
     const [password, setPassword ] = useState('')
     function handleUsernameChange (e) {
         setUsername(e.target.value)
-        let msg = ''
-        if (!/^\w+$/.test(e.target.value)) {
-            msg = '请输入字母、数字或者下划线'
-            alert(msg)
-        }
-        return Boolean(msg)
     }
     function handlePasswordChange (e) {
         setPassword(e.target.value)
-        let msg = ''
-        if (!/^\w+$/.test(e.target.value)) {
-            msg = '请输入字母、数字或者下划线'
-            alert(msg)
-        }
-        return Boolean(msg)
     }
     function handleLogin() {
-        if (handleUsernameChange || handlePasswordChange) {
+        if (!/^\w+$/.test(username)) {
+            alert('用户名：请输入字母、数字或者下划线');
             return;
         }
+        if (!/^\w+$/.test(password)) {
+            alert('密码：请输入字母、数字或者下划线')
+            return;
+        }
+        console.log(props)
+        // props.history.push(props.match.params.redirect_url)
         console.log(username, password)
     }
     return (
