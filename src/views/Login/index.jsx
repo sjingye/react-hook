@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { setToken } from '../../store/user/action'
 
 export default function Login (props) {
     const [username, setUsername ] = useState('')
     const [password, setPassword ] = useState('')
+    const redirectUrl = useSelector(state => {
+        console.log(state)
+        return state.redirectUrl
+    }, shallowEqual)
+    const dispatch = useDispatch()
+
     function handleUsernameChange (e) {
         setUsername(e.target.value)
     }
+
     function handlePasswordChange (e) {
         setPassword(e.target.value)
     }
+
     function handleLogin() {
         if (!/^\w+$/.test(username)) {
             alert('用户名：请输入字母、数字或者下划线');
@@ -19,8 +29,9 @@ export default function Login (props) {
             return;
         }
         console.log(props)
-        // props.history.push(props.match.params.redirect_url)
-        console.log(username, password)
+        console.log(redirectUrl)
+        dispatch(setToken('token'))
+        // props.history.push(redirectUrl || '/')
     }
     return (
         <div className="login-wrapper">

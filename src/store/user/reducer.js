@@ -1,12 +1,22 @@
-export function token(state = {token: ''}, action) {
+import * as actionType from './action-type'
+
+export function user(state = {token: ''}, action = {}) {
     switch(action.type) {
-        case 'SET_TOKEN':
+        case actionType.SET_TOKEN:
             return {
                 ...state,
                 token: action.token
             }
-        case 'GET_TOKEN': 
+        default: 
             return state;
+    }
+}
+
+export function redirectUrl(state = '', action = {}) {
+    switch(action.type) {
+        case actionType.SET_REDIRECT_URL:
+            console.log(action)
+            return action.redirectUrl
         default: 
             return state;
     }
